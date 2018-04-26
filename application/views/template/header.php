@@ -1,7 +1,7 @@
 <div class="headerbar">
     <!-- LOGO -->
     <div class="headerbar-left">
-        <a href="index.html" class="logo"><img alt="logo" src="assets/images/logo.png" /> <span>Ikan Mas</span></a>
+        <a href="<?php echo base_url();?>" class="logo"><img alt="logo" src="<?php echo base_url();?>assets/images/logo.png" /> <span>Ikan Mas</span></a>
     </div>
     <nav class="navbar-custom">
                 <ul class="list-inline float-right mb-0">
@@ -141,7 +141,7 @@
 
                     <li class="list-inline-item dropdown notif">
                         <a class="nav-link dropdown-toggle nav-user" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                            <img src="assets/images/avatars/admin.png" alt="Profile image" class="avatar-rounded">
+                            <img src="<?php echo base_url();?>assets/images/avatars/admin.png" alt="Profile image" class="avatar-rounded">
                         </a>
                         <div class="dropdown-menu dropdown-menu-right profile-dropdown">
                             <!-- item-->
