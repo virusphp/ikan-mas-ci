@@ -15,62 +15,49 @@
         <!-- end row -->
 		<div class="row">
 			<div class="col-xl-12">						
-                <div class="card mb-3">                                    
+                <div class="card mb-3">  
+                <div class="col-xl-6">
                     <div class="card-body">																
-                        <form action="#" data-parsley-validate="" novalidate="">
+                        <form action="<?php echo $action; ?>" method="post">
+                            <?php echo form_hidden($this->security->get_csrf_token_name(), $this->security->get_csrf_hash()); ?>
                             <div class="form-group">
-                                <label for="userName">User Name<span class="text-danger">*</span></label>
-                                <input type="text" name="nick" data-parsley-trigger="change" required="" placeholder="Enter user name" class="form-control" id="userName">
+                                <label for="userName">Kode Barang<span class="text-danger">*</span> <?php echo form_error('kd_barang') ?></label> 
+                                <input type="text" name="kd_barang" id="kd_barang" value="<?= $kd_barang; ?>" data-parsley-trigger="change" required="" placeholder="Kode Barang" class="form-control" >
                             </div>
                             <div class="form-group">
-                                <label for="emailAddress">Email address<span class="text-danger">*</span></label>
-                                <input type="email" name="email" data-parsley-trigger="change" required="" placeholder="Enter email" class="form-control" id="emailAddress">
+                                <label for="userName">Nama Barang<span class="text-danger">*</span> <?php echo form_error('nama_barang') ?></label>
+                                <input type="text" name="nama_barang" id="nama_barang" value="<?= $nama_barang; ?>" data-parsley-trigger="change" required="" placeholder="Nama Barang" class="form-control" >
                             </div>
                             <div class="form-group">
-                                <label for="pass1">Password<span class="text-danger">*</span></label>
-                                <input id="pass1" type="password" placeholder="Password" required="" class="form-control">
+                                <label for="userName">Satuan Barang<span class="text-danger">*</span> <?php echo form_error('satuan') ?></label>
+                                <?= form_dropdown('satuan', ['Gram' => 'Gram', 'Kilogram' => 'Kilogram'],$satuan, 'class="form-control" id="satuan"'); ?>	
                             </div>
                             <div class="form-group">
-                                <label for="passWord2">Confirm Password <span class="text-danger">*</span></label>
-                                <input data-parsley-equalto="#pass1" type="password" required="" placeholder="Password" class="form-control" id="passWord2">
+                                <label for="userName">Kualitas Barang<span class="text-danger">*</span> <?php echo form_error('kd_kualitas') ?></label>
+                                <?= form_dropdown('kd_kualitas', $kualitas,$kualitas_selected, 'class="form-control" id="kualitas"'); ?>	
                             </div>
                             <div class="form-group">
-                                <label>URL</label>
+                                <label for="userName">Harga Jual<span class="text-danger">*</span> <?php echo form_error('harga_jual') ?></label>
+                                <input  data-parsley-type="number" type="text" name="harga_jual" id="harga_jual"  value="<?= $harga_jual; ?>"data-parsley-trigger="change" required="" placeholder="Harga Jual" class="form-control" >
+                            </div>                                                                          
+                            <div class="form-group">
+                                <label>Keterangan<span class="text-danger">*</span> <?php echo form_error('kd_barang') ?></label>
                                 <div>
-                                    <input data-parsley-type="url" type="url" class="form-control" required="" placeholder="URL">
+                                    <textarea name="keterangan" required="" class="form-control"><?= $keterangan;?></textarea>
                                 </div>
-                            </div>                                                    
-                            <div class="form-group">
-                                <label>Number</label>
-                                <div>
-                                    <input data-parsley-type="number" type="text" class="form-control" required="" placeholder="Enter only numbers">
-                                </div>
-                            </div>                                                    
-                            <div class="form-group">
-                                <label>Textarea</label>
-                                <div>
-                                    <textarea required="" class="form-control"></textarea>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="checkbox">
-                                    <input id="remember-1" type="checkbox" data-parsley-multiple="remember-1">
-                                    <label for="remember-1"> Remember me </label>
-                                </div>
-                            </div>
+                            </div>                           
 
                             <div class="form-group text-right m-b-0">
-                                <button class="btn btn-primary" type="submit">
-                                    Submit
-                                </button>
-                                <button type="reset" class="btn btn-secondary m-l-5">
-                                    Cancel
-                                </button>
+                                <button class="btn btn-primary" type="submit"><?= $button;?></button>
+                                <a href="javascript:history.back()" class="btn btn-secondary m-l-5">Cancel</a>
+                                
                             </div>
 
                         </form>
                         
 					</div>
+                </div>                                  
+                   
                 </div>                        
             </div>														
         </div>	

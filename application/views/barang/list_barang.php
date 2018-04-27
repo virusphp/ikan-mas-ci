@@ -25,23 +25,17 @@
                             <table id="mytable" class="table table-bordered table-hover display">
                                 <thead>
                                     <tr>
-                                        <th>Name</th>
-                                        <th>Position</th>
-                                        <th>Office</th>
-                                        <th>Age</th>
-                                        <th>Start date</th>
-                                        <th>Salary</th>
+                                        <th>No</th>
+                                        <th>Kode Barang</th>
+                                        <th>Nama Barang</th>
+                                        <th>Satuan</th>
+                                        <th>Kualitas</th>
+                                        <th>Harga Jual</th>
+                                        <th>Keterangan</th>
+                                        <th>Aksi</th>
                                     </tr>
                                 </thead>										
-                                <tbody>
-                                    <tr>
-                                        <td>Tiger Nixon</td>
-                                        <td>System Architect</td>
-                                        <td>Edinburgh</td>
-                                        <td>61</td>
-                                        <td>2011/04/25</td>
-                                        <td>$320,800</td>
-                                    </tr>
+                                <tbody>                                   
                                 
                                 </tbody>
                             </table>
@@ -52,3 +46,32 @@
         </div>	
     </div>			
 </div>
+<script src="<?php echo base_url('assets/plugins/datatables/jQuery-2.1.4.min.js') ?>"></script>
+<script>
+    $(document).ready(function () {
+        $.fn.dataTable.ext.errMode = 'throw';
+        $('#mytable').dataTable({
+            "Processing": true,
+            "ServerSide": true,
+            "iDisplayLength": 25,
+            "bDestroy": true,
+            "oLanguage": {
+                "sSearch": "Search Data :  ",
+                "sZeroRecords": "No records to display",
+                "sEmptyTable": "No data available in table"
+            },
+            "ajax": "<?php echo base_url('barang/view_data'); ?>",
+            "columns": [
+                {"mData": "no"},                    
+                {"mData": "kd_barang"},
+                {"mData": "nama_barang"},
+                {"mData": "satuan"},
+                {"mData": "kualitas"},
+                {"mData": "harga_jual"},
+                {"mData": "keterangan"},
+                {"mData": "aksi"},
+            ]
+        });
+    });
+
+</script>

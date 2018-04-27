@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 21, 2018 at 06:43 PM
+-- Generation Time: Apr 27, 2018 at 08:17 PM
 -- Server version: 10.1.28-MariaDB
 -- PHP Version: 7.1.10
 
@@ -33,12 +33,21 @@ CREATE TABLE `barang` (
   `kd_kualitas` varchar(12) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `nama_barang` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `satuan_barang` varchar(5) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `harga_barang` decimal(12,2) NOT NULL,
+  `harga_beli` decimal(12,2) NOT NULL,
+  `harga_jual` decimal(12,2) NOT NULL,
   `total_barang` decimal(5,2) NOT NULL,
   `keterangan_barang` text COLLATE utf8mb4_unicode_ci,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `barang`
+--
+
+INSERT INTO `barang` (`kd_barang`, `kd_kualitas`, `nama_barang`, `satuan_barang`, `harga_beli`, `harga_jual`, `total_barang`, `keterangan_barang`, `created_at`, `updated_at`) VALUES
+('KD-0001', '10002', 'Liontin', 'Gram', '0.00', '200000.00', '0.00', 'mas 30 mputan perak', '2018-04-27 12:31:34', '2018-04-27 20:09:35'),
+('KD-0003', '10004', 'asdad', 'Gram', '0.00', '1232131231.00', '0.00', 'asdasdad', '2018-04-27 13:17:45', NULL);
 
 -- --------------------------------------------------------
 
@@ -89,6 +98,15 @@ CREATE TABLE `kualitas` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `kualitas`
+--
+
+INSERT INTO `kualitas` (`kd_kualitas`, `persentase_kualitas`, `keterangan_kualitas`, `created_at`, `updated_at`) VALUES
+('10002', '70.0', 'murni', '2018-04-27 09:56:55', NULL),
+('10003', '80.0', 'murni', '2018-04-27 09:57:08', '2018-04-27 16:57:32'),
+('10004', '50.0', 'campuran', '2018-04-27 09:57:24', NULL);
 
 -- --------------------------------------------------------
 

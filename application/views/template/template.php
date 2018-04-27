@@ -10,7 +10,9 @@
 		<!-- Switchery css -->
 		<link href="<?php echo base_url();?>assets/plugins/switchery/switchery.min.css" rel="stylesheet" />		
 		<!-- Bootstrap CSS -->
-		<link href="<?php echo base_url();?>assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />		
+		<link href="<?php echo base_url();?>assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />	
+		<!-- DATA TABLES -->
+		<link href="<?php echo base_url('assets/plugins/datatables/dataTables.bootstrap.css'); ?>" rel="stylesheet">	
 		<!-- Font Awesome CSS -->
 		<link href="<?php echo base_url();?>assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />		
 		<!-- Custom CSS -->
@@ -57,6 +59,9 @@
 
 <script src="<?php echo base_url();?>assets/js/popper.min.js"></script>
 <script src="<?php echo base_url();?>assets/js/bootstrap.min.js"></script>
+
+<!-- DATA TABES SCRIPT -->
+<script src="<?php echo base_url('assets/plugins/datatables/jquery.dataTables.min.js'); ?>"></script>
 
 <script src="<?php echo base_url();?>assets/js/detect.js"></script>
 <script src="<?php echo base_url();?>assets/js/fastclick.js"></script>
