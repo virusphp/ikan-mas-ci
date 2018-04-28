@@ -36,10 +36,7 @@
                                 <label for="userName">Kualitas Barang<span class="text-danger">*</span> <?php echo form_error('kd_kualitas') ?></label>
                                 <?= form_dropdown('kd_kualitas', $kualitas,$kualitas_selected, 'class="form-control" id="kualitas"'); ?>	
                             </div>
-                            <div class="form-group">
-                                <label for="userName">Harga Jual<span class="text-danger">*</span> <?php echo form_error('harga_jual') ?></label>
-                                <input  data-parsley-type="number" type="text" name="harga_jual" id="harga_jual"  value="<?= $harga_jual; ?>"data-parsley-trigger="change" required="" placeholder="Harga Jual" class="form-control" >
-                            </div>                                                                          
+                                                                                                    
                             <div class="form-group">
                                 <label>Keterangan<span class="text-danger">*</span> <?php echo form_error('kd_barang') ?></label>
                                 <div>

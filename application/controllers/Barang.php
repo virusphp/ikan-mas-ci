@@ -28,7 +28,7 @@ class Barang extends CI_Controller {
                 'nama_barang' => $q->nama_barang,
                 'satuan' => $q->satuan_barang,
                 'kualitas' => $kualitas->persentase_kualitas,
-                'harga_jual' => $q->harga_jual,
+                'harga_jual' => rupiah($kualitas->harga_jual),
                 'keterangan'=>$q->keterangan_barang,
                 'aksi' => array(anchor('barang/update/' . $q->kd_barang, '<i class="fa fa-pencil-square-o " data-toggle="tooltip" title="Edit"></i>', 'class="btn btn-primary btn-sm"') . ' ' . anchor('barang/delete/' . $q->kd_barang, '<i class="fa fa-trash"></i>', 'class="btn btn-primary btn-sm" data-toggle="tooltip" title="delete" onclick="javasciprt: return confirm(\'Data Akan Dihapus ?\')"')),
             );
@@ -46,7 +46,7 @@ class Barang extends CI_Controller {
             'nama_barang' => set_value('nama_barang'),
             'satuan' => set_value('satuan'),
             'kualitas_selected' => set_value('kualitas_selected'),
-            'harga_jual' => set_value('harga_jual'),
+            // 'harga_jual' => set_value('harga_jual'),
             'keterangan' => set_value('keterangan'), 
         );      
         $data['kualitas'] = $this->M_barang->PilihKualitas();
@@ -66,7 +66,7 @@ class Barang extends CI_Controller {
                 'satuan_barang' => $this->input->post('satuan', TRUE),
                 'kd_kualitas' => $this->input->post('kd_kualitas', TRUE),
                 'keterangan_barang' => $this->input->post('keterangan', TRUE),
-                'harga_jual' => $this->input->post('harga_jual', TRUE),                
+                // 'harga_jual' => $this->input->post('harga_jual', TRUE),                
             );
             $this->M_barang->insert($data);
             $this->session->set_flashdata('message', 'Create Record Success');
@@ -84,7 +84,7 @@ class Barang extends CI_Controller {
                 'nama_barang' => set_value('nama_barang', $row->nama_barang),
                 'satuan' => set_value('satuan', $row->satuan_barang),
                 'kualitas_selected' => set_value('kualitas_selected', $row->kd_kualitas),
-                'harga_jual' => set_value('harga_jual', $row->harga_jual),
+                // 'harga_jual' => set_value('harga_jual', $row->harga_jual),
                 'keterangan' => set_value('keterangan', $row->keterangan_barang),                
             );
             $data['kualitas'] = $this->M_barang->PilihKualitas();           
@@ -106,7 +106,7 @@ class Barang extends CI_Controller {
                 'satuan_barang' => $this->input->post('satuan', TRUE),
                 'kd_kualitas' => $this->input->post('kd_kualitas', TRUE),
                 'keterangan_barang' => $this->input->post('keterangan', TRUE),
-                'harga_jual' => $this->input->post('harga_jual', TRUE),                
+                // 'harga_jual' => $this->input->post('harga_jual', TRUE),                
             );
             $this->M_barang->update($id,$data);
             $this->session->set_flashdata('message', 'Update Record Success');
@@ -130,7 +130,7 @@ class Barang extends CI_Controller {
         $this->form_validation->set_rules('nama_barang', 'Nama Barang', 'trim|required');
         $this->form_validation->set_rules('satuan', 'Satuan', 'trim|required');
         $this->form_validation->set_rules('kd_kualitas', 'Kualitas Barang', 'trim|required');
-        $this->form_validation->set_rules('harga_jual', 'Harga Jual', 'trim|required|numeric');
+        // $this->form_validation->set_rules('harga_jual', 'Harga Jual', 'trim|required|numeric');
         $this->form_validation->set_rules('keterangan', 'Keterangan', 'trim|required');
         $this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
     }

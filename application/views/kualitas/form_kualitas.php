@@ -27,7 +27,11 @@
                             <div class="form-group">
                                 <label for="userName">Persentase<span class="text-danger">*</span> <?php echo form_error('nama_supplier') ?></label>
                                 <input type="text" name="persentase" id="persentase" value="<?= $persentase; ?>" data-parsley-trigger="change" required="" placeholder="Persentase Kualitas" class="form-control" >
-                            </div>                                                                                  
+                            </div> 
+                            <div class="form-group">
+                                <label for="userName">Harga Jual<span class="text-danger">*</span> <?php echo form_error('harga_jual') ?></label>
+                                <input  data-parsley-type="number" type="text" name="harga_jual" id="harga_jual"  value="<?= $harga_jual; ?>"data-parsley-trigger="change" required="" placeholder="Harga Jual" class="form-control" >
+                            </div>                                                                                   
                             <div class="form-group">
                                 <label>Keterangan<span class="text-danger">*</span> <?php echo form_error('ketarangan') ?></label>
                                 <div>

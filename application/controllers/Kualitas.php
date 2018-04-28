@@ -24,7 +24,8 @@ class Kualitas extends CI_Controller {
             $query[] = array(
                 'no' => $no++,
                 'kd_kualitas'=>$q->kd_kualitas,               
-                'persentase' => $q->persentase_kualitas,                       
+                'persentase' => $q->persentase_kualitas, 
+                'harga_jual' => rupiah($q->harga_jual),                       
                 'keterangan'=>$q->keterangan_kualitas,
                 'aksi' => array(anchor('kualitas/update/' . $q->kd_kualitas, '<i class="fa fa-pencil-square-o " data-toggle="tooltip" title="Edit"></i>', 'class="btn btn-primary btn-sm"') . ' ' . anchor('kualitas/delete/' . $q->kd_kualitas, '<i class="fa fa-trash"></i>', 'class="btn btn-primary btn-sm" data-toggle="tooltip" title="delete" onclick="javasciprt: return confirm(\'Data Akan Dihapus ?\')"')),
             );
@@ -39,8 +40,9 @@ class Kualitas extends CI_Controller {
             'button' => 'Simpan',
             'action' => site_url('kualitas/create_action'),
             'kd_kualitas' => set_value('kd_kualitas'),
-            'persentase' => set_value('persentase'),            
-            'keterangan' => set_value('keterangan'), 
+            'persentase' => set_value('persentase'),  
+            'harga_jual' => set_value('harga_jual'),          
+            'keterangan' => set_value('keterangan') 
         );              
         $this->template->display('kualitas/form_kualitas',$data);
     }
@@ -54,7 +56,8 @@ class Kualitas extends CI_Controller {
         } else {
             $data = array(                
                 'kd_kualitas' => $this->input->post('kd_kualitas', TRUE),
-                'persentase_kualitas' => $this->input->post('persentase', TRUE),               
+                'persentase_kualitas' => $this->input->post('persentase', TRUE),
+                'harga_jual' => $this->input->post('harga_jual', TRUE),             
                 'keterangan_kualitas' => $this->input->post('keterangan', TRUE),                               
             );
             $this->M_kualitas->insert($data);
@@ -70,7 +73,8 @@ class Kualitas extends CI_Controller {
                 'button' => 'Update',
                 'action' => site_url('kualitas/update_action'),
                 'kd_kualitas' => set_value('kd_kualitas', $row->kd_kualitas),
-                'persentase' => set_value('persentase', $row->persentase_kualitas),                
+                'persentase' => set_value('persentase', $row->persentase_kualitas), 
+                'harga_jual' => set_value('harga_jual', $row->harga_jual),               
                 'keterangan' => set_value('keterangan', $row->keterangan_kualitas),                
             );       
             $this->template->display('kualitas/form_kualitas', $data);
@@ -87,7 +91,8 @@ class Kualitas extends CI_Controller {
         } else {
             $id=$this->input->post('kd_kualitas', TRUE);
             $data = array( 
-                'persentase_kualitas' => $this->input->post('persentase', TRUE),               
+                'persentase_kualitas' => $this->input->post('persentase', TRUE),   
+                'harga_jual' => $this->input->post('harga_jual', TRUE),             
                 'keterangan_kualitas' => $this->input->post('keterangan', TRUE)            
             );
             $this->M_kualitas->update($id,$data);
@@ -110,6 +115,7 @@ class Kualitas extends CI_Controller {
 
     public function set_rules() { 
         $this->form_validation->set_rules('persentase', 'Persentase Kualitas', 'trim|required|numeric');
+        $this->form_validation->set_rules('harga_jual', 'Harga Jual', 'trim|required|numeric');
         $this->form_validation->set_rules('keterangan', 'Keterangan', 'trim|required');
         $this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
     }

@@ -27,7 +27,8 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Kode Kualitas</th>
-                                        <th>Persentase</th>                                       
+                                        <th>Persentase</th> 
+                                        <th>Harga Jual</th>                                       
                                         <th>Keterangan</th>
                                         <th>Aksi</th>
                                     </tr>
@@ -62,6 +63,7 @@
                 {"mData": "no"},                    
                 {"mData": "kd_kualitas"},
                 {"mData": "persentase"},
+                {"mData": "harga_jual"},
                 {"mData": "keterangan"},
                 {"mData": "aksi"},
             ]
