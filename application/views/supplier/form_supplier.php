@@ -21,27 +21,25 @@
                         <form action="<?php echo $action; ?>" method="post">
                             <?php echo form_hidden($this->security->get_csrf_token_name(), $this->security->get_csrf_hash()); ?>
                             <div class="form-group">
-                                <label for="userName">Kode Barang<span class="text-danger">*</span> <?php echo form_error('kd_barang') ?></label> 
-                                <input type="text" name="kd_barang" id="kd_barang" value="<?= $kd_barang; ?>" data-parsley-trigger="change" required="" placeholder="Kode Barang" class="form-control" >
+                                <label for="userName">Kode Supplier<span class="text-danger">*</span> <?php echo form_error('kd_supplier') ?></label> 
+                                <input type="text" name="kd_supplier" id="kd_supplier" value="<?= $kd_supplier; ?>" data-parsley-trigger="change" required="" placeholder="Kode Supplier" class="form-control" >
                             </div>
                             <div class="form-group">
-                                <label for="userName">Nama Barang<span class="text-danger">*</span> <?php echo form_error('nama_barang') ?></label>
-                                <input type="text" name="nama_barang" id="nama_barang" value="<?= $nama_barang; ?>" data-parsley-trigger="change" required="" placeholder="Nama Barang" class="form-control" >
+                                <label for="userName">Nama Supplier<span class="text-danger">*</span> <?php echo form_error('nama_supplier') ?></label>
+                                <input type="text" name="nama_supplier" id="nama_supplier" value="<?= $nama_supplier; ?>" data-parsley-trigger="change" required="" placeholder="Nama Supplier" class="form-control" >
                             </div>
                             <div class="form-group">
-                                <label for="userName">Satuan Barang<span class="text-danger">*</span> <?php echo form_error('satuan') ?></label>
-                                <?= form_dropdown('satuan', ['Gram' => 'Gram', 'Kilogram' => 'Kilogram'],$satuan, 'class="form-control" id="satuan"'); ?>	
-                            </div>
+                                <label>Alamat<span class="text-danger">*</span> <?php echo form_error('alamat') ?></label>
+                                <div>
+                                    <textarea name="alamat" required="" placeholder="Alamat" class="form-control"><?= $alamat;?></textarea>
+                                </div>
+                            </div>   
                             <div class="form-group">
-                                <label for="userName">Kualitas Barang<span class="text-danger">*</span> <?php echo form_error('kd_kualitas') ?></label>
-                                <?= form_dropdown('kd_kualitas', $kualitas,$kualitas_selected, 'class="form-control" id="kualitas"'); ?>	
-                            </div>
-                            <div class="form-group">
-                                <label for="userName">Harga Jual<span class="text-danger">*</span> <?php echo form_error('harga_jual') ?></label>
-                                <input  data-parsley-type="number" type="text" name="harga_jual" id="harga_jual"  value="<?= $harga_jual; ?>"data-parsley-trigger="change" required="" placeholder="Harga Jual" class="form-control" >
+                                <label for="userName">No Telpn<span class="text-danger">*</span> <?php echo form_error('no_telp') ?></label>
+                                <input  data-parsley-type="number" type="text" name="no_telp" id="no_telp"  value="<?= $no_telp; ?>"data-parsley-trigger="change" required="" placeholder="No Telpn" class="form-control" >
                             </div>                                                                          
                             <div class="form-group">
-                                <label>Keterangan<span class="text-danger">*</span> <?php echo form_error('kd_barang') ?></label>
+                                <label>Keterangan<span class="text-danger">*</span> <?php echo form_error('keterangan') ?></label>
                                 <div>
                                     <textarea name="keterangan" required="" placeholder="Keterangan" class="form-control"><?= $keterangan;?></textarea>
                                 </div>

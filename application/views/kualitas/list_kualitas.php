@@ -3,10 +3,10 @@
         <div class="row">
             <div class="col-xl-12">
                 <div class="breadcrumb-holder">
-                    <h1 class="main-title float-left">Data Barang</h1>
+                    <h1 class="main-title float-left">Data Kualitas Barang</h1>
                     <ol class="breadcrumb float-right">
                         <li class="breadcrumb-item">Master</li>
-                        <li class="breadcrumb-item active">Barang</li>
+                        <li class="breadcrumb-item active">Kualitas</li>
                     </ol>
                     <div class="clearfix"></div>
                 </div>
@@ -17,7 +17,7 @@
 			<div class="col-xl-12">						
                 <div class="card mb-3">
                     <div class="card-header">                    
-                        <h3 class='box-title'><?php echo anchor('barang/create', '<i class="fa fa-plus"> </i>Tambah Data', array('class' => 'btn btn-primary')); ?>
+                        <h3 class='box-title'><?php echo anchor('kualitas/create', '<i class="fa fa-plus"> </i>Tambah Data', array('class' => 'btn btn-primary')); ?>
                         </h3>
                     </div>                        
                     <div class="card-body">
@@ -26,11 +26,8 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Kode Barang</th>
-                                        <th>Nama Barang</th>
-                                        <th>Satuan</th>
-                                        <th>Kualitas</th>
-                                        <th>Harga Jual</th>
+                                        <th>Kode Kualitas</th>
+                                        <th>Persentase</th>                                       
                                         <th>Keterangan</th>
                                         <th>Aksi</th>
                                     </tr>
@@ -60,14 +57,11 @@
                 "sZeroRecords": "No records to display",
                 "sEmptyTable": "No data available in table"
             },
-            "ajax": "<?php echo base_url('barang/view_data'); ?>",
+            "ajax": "<?php echo base_url('kualitas/view_data'); ?>",
             "columns": [
                 {"mData": "no"},                    
-                {"mData": "kd_barang"},
-                {"mData": "nama_barang"},
-                {"mData": "satuan"},
-                {"mData": "kualitas"},
-                {"mData": "harga_jual"},
+                {"mData": "kd_kualitas"},
+                {"mData": "persentase"},
                 {"mData": "keterangan"},
                 {"mData": "aksi"},
             ]
