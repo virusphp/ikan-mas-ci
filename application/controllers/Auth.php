@@ -4,6 +4,7 @@ class Auth extends CI_Controller {
 	
 	function __construct() {
         parent::__construct();
+        $this->load->library('session');
         $this->load->library('bcrypt');
         $this->load->model('M_auth');
     }

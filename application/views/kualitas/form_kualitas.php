@@ -22,7 +22,7 @@
                             <?php echo form_hidden($this->security->get_csrf_token_name(), $this->security->get_csrf_hash()); ?>
                             <div class="form-group">
                                 <label for="userName">Kode Kualitas<span class="text-danger">*</span> <?php echo form_error('kd_kualitas') ?></label> 
-                                <input type="text" name="kd_kualitas" id="kd_kualitas" value="<?= $kd_kualitas; ?>" data-parsley-trigger="change" required="" placeholder="Kode Kualitas" class="form-control" >
+                                <input type="text" name="kd_kualitas" id="kd_kualitas" value="<?= $kd_kualitas; ?>" data-parsley-trigger="change" <?= !empty($kd_kualitas) ? "disabled" : ""?> placeholder="Kode Kualitas" class="form-control" >
                             </div>
                             <div class="form-group">
                                 <label for="userName">Persentase<span class="text-danger">*</span> <?php echo form_error('nama_supplier') ?></label>
@@ -30,7 +30,7 @@
                             </div> 
                             <div class="form-group">
                                 <label for="userName">Harga Jual<span class="text-danger">*</span> <?php echo form_error('harga_jual') ?></label>
-                                <input  data-parsley-type="number" type="text" name="harga_jual" id="harga_jual"  value="<?= $harga_jual; ?>"data-parsley-trigger="change" required="" placeholder="Harga Jual" class="form-control" >
+                                <input  data-parsley-type="number" type="number" name="harga_jual" id="harga_jual"  value="<?= $harga_jual; ?>"data-parsley-trigger="change" required="" placeholder="Harga Jual" class="form-control" >
                             </div>                                                                                   
                             <div class="form-group">
                                 <label>Keterangan<span class="text-danger">*</span> <?php echo form_error('ketarangan') ?></label>

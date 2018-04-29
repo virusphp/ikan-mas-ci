@@ -3,34 +3,33 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class Kualitas extends CI_Controller {
+class User extends CI_Controller {
 
     function __construct() 
     {
         parent::__construct();       
-        $this->load->model('M_kualitas');
+        $this->load->model('M_user');
         $this->load->helper('project');
     }
 
     public function index() 
     {
               
-        $this->template->display('kualitas/list_kualitas');
+        $this->template->display('user/list_user');
     }
 
     public function view_data() {
         $no = 1;
-        $getdata = $this->M_kualitas->get_all();
+        $getdata = $this->M_user->get_all();
         foreach ($getdata as $q) {    
             $query[] = array(
                 'no' => $no++,
-                'kd_kualitas'=>$q->kd_kualitas,               
-                'persentase' => $q->persentase_kualitas, 
-                'harga_jual' => rupiah($q->harga_jual),                       
-                'keterangan'=>$q->keterangan_kualitas,
+                'username'=>$q->username,               
+                'nama_pengguna' => $q->nama_pengguna, 
+                'status' => $q->status,                       
                 'aksi' => array(
-                    anchor('kualitas/update/' . $q->kd_kualitas, '<i class="fa fa-pencil-square-o " data-toggle="tooltip" title="Edit"></i>', 'class="btn btn-warning btn-sm"') . ' ' . 
-                    anchor('kualitas/delete/' . $q->kd_kualitas, '<i class="fa fa-trash"></i>', 'class="btn btn-danger btn-sm" data-toggle="tooltip" title="delete" onclick="javasciprt: return confirm(\'Data Akan Dihapus ?\')"')
+                    anchor('user/update/' . $q->id_user, '<i class="fa fa-pencil-square-o " data-toggle="tooltip" title="Edit"></i>', 'class="btn btn-warning btn-sm"') . ' ' . 
+                    anchor('user/delete/' . $q->id_user, '<i class="fa fa-trash"></i>', 'class="btn btn-danger btn-sm" data-toggle="tooltip" title="delete" onclick="javasciprt: return confirm(\'Data Akan Dihapus ?\')"')
                 ),
             );
         }

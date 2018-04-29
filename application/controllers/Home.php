@@ -9,7 +9,9 @@ class Home extends CI_Controller {
     function index() {
         //$this->load->view('auth/index');
         //var_dump($this->session->userdata());
+        
         $this->template->display('home/index');
+
     }
 
     
