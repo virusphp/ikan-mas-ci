@@ -17,7 +17,7 @@
 			<div class="col-xl-12">						
                 <div class="card mb-3">
                     <div class="card-header">                    
-                        <h3 class='box-title'><?php echo anchor('barang/create', '<i class="fa fa-plus"> </i>Tambah Data', array('class' => 'btn btn-primary')); ?>
+                        <h3 class='box-title'><?php echo anchor('barang/create', '<i class="fa fa-plus"> </i>Tambah Data', array('class' => 'btn btn-primary btn-sm')); ?>
                         </h3>
                     </div>                        
                     <div class="card-body">

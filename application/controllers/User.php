@@ -41,31 +41,33 @@ class User extends CI_Controller {
     {
         $data = array(
             'button' => 'Simpan',
-            'action' => site_url('kualitas/create_action'),
-            'kd_kualitas' => set_value('kd_kualitas'),
-            'persentase' => set_value('persentase'),  
-            'harga_jual' => set_value('harga_jual'),          
-            'keterangan' => set_value('keterangan') 
+            'action' => site_url('user/create_action'),
+            'username' => set_value('username'),
+            'password' => set_value('password'),  
+            'nama_pengguna' => set_value('nama_pengguna'),          
+            'status' => set_value('status'),
+            'gld' => set_value('gld') 
         );              
-        $this->template->display('kualitas/form_kualitas',$data);
+        $this->template->display('user/form_user',$data);
     }
 
     public function create_action() {
         $this->set_rules(); 
         $this->form_validation->set_message('is_unique', '%s Sudah Digunakan');  
-        $this->form_validation->set_rules('kd_kualitas', 'Kode Kualitas', 'trim|required|is_unique[kualitas.kd_kualitas]');       
+        $this->form_validation->set_rules('username', 'Username', 'trim|required|is_unique[users.username]');       
         if ($this->form_validation->run() == FALSE) {
            $this->create();           
         } else {
             $data = array(                
-                'kd_kualitas' => $this->input->post('kd_kualitas', TRUE),
-                'persentase_kualitas' => $this->input->post('persentase', TRUE),
-                'harga_jual' => $this->input->post('harga_jual', TRUE),             
-                'keterangan_kualitas' => $this->input->post('keterangan', TRUE),                               
+                'username' => $this->input->post('username', TRUE),
+                'nama_pengguna' => $this->input->post('nama_pengguna', TRUE),
+                'password' => $this->input->post('password', TRUE),             
+                'status' => $this->input->post('status', TRUE),                               
+                'gld' => $this->input->post('gld', TRUE),                               
             );
-            $this->M_kualitas->insert($data);
+            $this->M_user->insert($data);
             $this->session->set_flashdata('message', 'Create Record Success');
-            redirect(site_url('kualitas'));
+            redirect(site_url('user'));
         }
     }
 

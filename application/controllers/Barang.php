@@ -20,17 +20,18 @@ class Barang extends CI_Controller {
     public function view_data() {
         $no = 1;
         $getdata = $this->M_barang->get_all();
+        
         foreach ($getdata as $q) {
-            $kualitas = $this->db->get_where('kualitas', array('kd_kualitas' => $q->kd_kualitas))->row();            
+           // $kualitas = $this->db->get_where('kualitas', array('kd_kualitas' => $q->kd_kualitas))->row();            
             $query[] = array(
                 'no' => $no++,
                 'kd_barang'=>$q->kd_barang,               
                 'nama_barang' => $q->nama_barang,
                 'satuan' => $q->satuan_barang,
-                'kualitas' => $kualitas->persentase_kualitas,
-                'harga_jual' => rupiah($kualitas->harga_jual),
+                'kualitas' => persen($q->persentase_kualitas),
+                'harga_jual' => rupiah($q->harga_jual),
                 'keterangan'=>$q->keterangan_barang,
-                'aksi' => array(anchor('barang/update/' . $q->kd_barang, '<i class="fa fa-pencil-square-o " data-toggle="tooltip" title="Edit"></i>', 'class="btn btn-primary btn-sm"') . ' ' . anchor('barang/delete/' . $q->kd_barang, '<i class="fa fa-trash"></i>', 'class="btn btn-primary btn-sm" data-toggle="tooltip" title="delete" onclick="javasciprt: return confirm(\'Data Akan Dihapus ?\')"')),
+                'aksi' => array(anchor('barang/update/' . $q->kd_barang, '<i class="fa fa-pencil-square-o " data-toggle="tooltip" title="Edit"></i>', 'class="btn btn-warning btn-sm"') . ' ' . anchor('barang/delete/' . $q->kd_barang, '<i class="fa fa-trash"></i>', 'class="btn btn-danger btn-sm" data-toggle="tooltip" title="delete" onclick="javasciprt: return confirm(\'Data Akan Dihapus ?\')"')),
             );
         }
         $result = array('data' => $query);

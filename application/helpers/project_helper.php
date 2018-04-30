@@ -127,8 +127,13 @@ function tanggal_new() {
 }
 
 function rupiah($angka) {
-    $rupiah = number_format($angka, 0, ',', '.');
+    $rupiah = "Rp ". number_format($angka, 0, ',', '.');
     return $rupiah;
+}
+
+function persen($angka) {
+    $persen = $angka. " %";
+    return $persen;
 }
 
 function desimal2($angka) {
