@@ -197,14 +197,14 @@
         });    
     }
 
-    function del_temp(id)
-    {
+    function delete_temp(id)
+    {        
         $.ajax({
             type:"GET",
             url:"<?php echo base_url('penjualan/hapus_temp');?>",
             data:"id="+id,
             success:function(html){
-                $("#data"+id).hide(1000);
+                $("#data"+id).hide(100);
             }
         });
     }

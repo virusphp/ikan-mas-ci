@@ -70,7 +70,7 @@ class Penjualan extends CI_Controller {
                     <td>$q->qty_transaksi</td>
                     <td>$q->harga_satuan</td>
                     <td>$q->harga_total</td>
-                    <td><a role='button' onClick='del_temp($q->kd_detail_transaksi)' class='btn btn-sm btn-outline-danger'><i class='fa fa-trash-o'></i></a></td>
+                    <td><a role='button' onClick='delete_temp($q->kd_detail_transaksi)' class='btn btn-sm btn-outline-danger'><i class='fa fa-trash-o'></i></a></td>
                 </tr>";
         }
     }
@@ -88,7 +88,7 @@ class Penjualan extends CI_Controller {
 
     function hapus_temp() {
         $id=$this->input->get('id');
-        $this->M_transaksi->hapus_temp($id);
+        $this->M_transaksi->hapus_temp($id);        
     }
 
     public function create_action() 

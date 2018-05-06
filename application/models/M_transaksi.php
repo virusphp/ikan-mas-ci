@@ -7,12 +7,12 @@ class M_transaksi extends CI_Model {
 
     function kd_detail_trans() 
     {        
-        $jenis = "DT".date('dmy');
+        $jenis = date('ymd');
         $query = $this->db->query("SELECT max(kd_detail_transaksi) as maxID FROM detail_transaksi WHERE kd_detail_transaksi LIKE '$jenis%'")->row_array();
         $idMax = $query['maxID'];
-        $noUrut = (int) substr($idMax, 8, 3);
+        $noUrut = (int) substr($idMax, 6, 4);
         $noUrut++;
-        $newID = $jenis . sprintf("%03s", $noUrut);
+        $newID = $jenis . sprintf("%04s", $noUrut);
         return $newID;       
     }
 
