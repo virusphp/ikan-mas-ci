@@ -15,7 +15,7 @@ class M_auth extends CI_Model {
         if ($result) {            
             $paswd = $result->password;
             if ($this->bcrypt->check_password($hash, $paswd)) {
-                $group=$this->db->get_where('groups',['gid'=>$result->gid])->row();
+                $group=$this->db->get_where('groups',array('gid'=>$result->gid))->row();
                 $data = array(  
                     'username'=>$result->username,                                    
                     'nama_pengguna' => $result->nama_pengguna,

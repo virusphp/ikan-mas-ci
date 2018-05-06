@@ -19,8 +19,8 @@
                 <li class="submenu">
                     <a href="#"><i class="fa fa-fw fa-bar-chart"></i> <span>Transaksi</span> <span class="menu-arrow"></span></a>
                     <ul class="list-unstyled">
-                        <li><a href="'.base_url('pembelian').'">Pembelian</a></li>
-                        <li><a href="'.base_url('penjualan').'">Penjualan</a></li>
+                        <li><a href='.site_url('pembelian').'>Pembelian</a></li>
+                        <li><a href='.site_url('penjualan').'>Penjualan</a></li>
                     </ul>
                 </li>
                 <li class="submenu">
@@ -100,7 +100,7 @@
                     <a href="#"><i class="fa fa-fw fa-bar-chart"></i> <span>Transaksi</span> <span class="menu-arrow"></span></a>
                     <ul class="list-unstyled">
                         <li><a href="'.base_url('pembelian').'">Penjualan</a></li>
-                        <li><a href="'.base_url('pembelian').'">Penjualan</a></li>
+                        <li><a href="'.base_url('penjualan').'">Penjualan</a></li>
                     </ul>
                 </li>
                 <li class="submenu">

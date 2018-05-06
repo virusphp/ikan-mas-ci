@@ -17,6 +17,7 @@
 		<link href="<?php echo base_url();?>assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />		
 		<!-- Custom CSS -->
 		<link href="<?php echo base_url();?>assets/css/style.css" rel="stylesheet" type="text/css" />	
+		<link href="<?php echo base_url();?>assets/plugins/select2/css/select2.min.css" rel="stylesheet" type="text/css"/>
 		
 		<!-- BEGIN CSS for this page -->
 
@@ -61,7 +62,8 @@
 <script src="<?php echo base_url();?>assets/js/bootstrap.min.js"></script>
 
 <!-- DATA TABES SCRIPT -->
-<script src="<?php echo base_url('assets/plugins/datatables/jquery.dataTables.min.js'); ?>"></script>
+<script src="<?php echo base_url('assets/js/jquery.dataTables.min.js'); ?>"></script>
+<script src="<?php echo base_url('assets/js/dataTables.bootstrap4.min.js'); ?>"></script>
 
 <script src="<?php echo base_url();?>assets/js/detect.js"></script>
 <script src="<?php echo base_url();?>assets/js/fastclick.js"></script>
@@ -72,10 +74,12 @@
 
 <!-- App js -->
 <script src="<?php echo base_url();?>assets/js/pikeadmin.js"></script>
-
-<!-- BEGIN Java Script for this page -->
-
-<!-- END Java Script for this page -->
+<script src="<?= base_url()?>assets/plugins/select2/js/select2.min.js"></script>
+<script>								
+$(document).ready(function() {
+    $('.select2').select2();
+});
+</script>
 
 </body>
 </html>

@@ -5,7 +5,8 @@ if (!defined('BASEPATH'))
 
 class M_barang extends CI_Model {
 
-    public $table = 'barang as b';
+    public $table = 'barang';
+    public $barang = 'barang as b';
     public $table_join = 'kualitas as k';
     public $id = 'kd_barang';
     public $order = 'ASC';
@@ -25,14 +26,19 @@ class M_barang extends CI_Model {
 
     // get all relasi
     function get_all() {
-//        $this->db->order_by($this->id, $this->order);
         $this->db->select('b.kd_barang,b.nama_barang,b.satuan_barang,b.keterangan_barang,k.persentase_kualitas,k.harga_jual');
-        $this->db->from($this->table);
-   //     $this->db->select('presentase_kualitas,harga_jual');
-    //    $this->db->from($this->table_join);
+        $this->db->from($this->barang);   
         $this->db->join($this->table_join,'k.kd_kualitas = b.kd_kualitas');
-        return $this->db->get()->result();
-       // return $this->db->get($this->table)->result();
+        return $this->db->get()->result();      
+    }
+
+     // get all relasi
+     function get_barang($kd_barang) {
+        $this->db->select('b.kd_barang,b.nama_barang,k.harga_jual');
+        $this->db->from($this->barang);   
+        $this->db->join($this->table_join,'k.kd_kualitas = b.kd_kualitas');
+        $this->db->where($this->id,$kd_barang);
+        return $this->db->get()->row();      
     }
 
     // get data by id
