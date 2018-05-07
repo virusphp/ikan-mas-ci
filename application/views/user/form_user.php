@@ -18,8 +18,10 @@
                 <div class="card mb-3">  
                 <div class="col-xl-6">
                     <div class="card-body">																
+                    <?php echo validation_errors(); ?>
                         <form action="<?php echo $action; ?>" method="post">
                             <?php echo form_hidden($this->security->get_csrf_token_name(), $this->security->get_csrf_hash()); ?>
+                                <input type="hidden" name="id_user" id="id_user" value="<?= $id_user; ?>" data-parsley-trigger="change" class="form-control" >
                             <div class="form-group">
                                 <label for="username">Username<span class="text-danger">*</span> <?php echo form_error('username') ?></label> 
                                 <input type="text" name="username" id="username" value="<?= $username; ?>" data-parsley-trigger="change" required="" placeholder="username" class="form-control" >
@@ -30,15 +32,15 @@
                             </div>
                             <div class="form-group">
                                 <label for="password">Password<span class="text-danger">*</span> <?php echo form_error('password') ?></label>
-                                <input type="password" name="password" id="password" value="<?= $password; ?>" data-parsley-trigger="change" placeholder="Nama Pengguna" class="form-control" >
+                                <input type="password" name="password" id="password" value="<?= $password; ?>" data-parsley-trigger="change" placeholder="Password" class="form-control" >
                             </div>   
                             <div class="form-group">
                                 <label for="status">Status<span class="text-danger">*</span> <?php echo form_error('status') ?></label>
-                                <input  data-parsley-type="text" type="text" name="status" id="status"  value="<?= $status; ?>"data-parsley-trigger="change" required="" placeholder="Status" class="form-control" >
+                                <?= form_dropdown('status', ['Aktif' => 'Aktif', 'Non Aktif' => 'Non AKtif'],$status, 'class="form-control" id="status"'); ?>	
                             </div>                                                                          
                             <div class="form-group">
-                                <label for="gld">Golongan<span class="text-danger">*</span> <?php echo form_error('gld') ?></label>
-                                <input  data-parsley-type="text" type="text" name="gld" id="gld"  value="<?= $status; ?>"data-parsley-trigger="change" required="" placeholder="Golongan" class="form-control" >
+                                <label for="gld">Golongan<span class="text-danger">*</span> <?php echo form_error('gid') ?></label>
+                                <?= form_dropdown('gid', $groups,$groups_selected, 'class="form-control" id="gid"'); ?>	
                             </div>                                                                          
 
 

@@ -10,6 +10,7 @@ class User extends CI_Controller {
         parent::__construct();       
         $this->load->model('M_user');
         $this->load->helper('project');
+        $this->load->library('bcrypt');
     }
 
     public function index() 
@@ -46,25 +47,29 @@ class User extends CI_Controller {
             'password' => set_value('password'),  
             'nama_pengguna' => set_value('nama_pengguna'),          
             'status' => set_value('status'),
-            'gld' => set_value('gld') 
+            'groups_selected' => set_value('groupds_select') 
         );              
+        $data['groups'] = $this->M_user->PilihGroups();
         $this->template->display('user/form_user',$data);
     }
 
     public function create_action() {
+        // var_dump($this->input->post());
         $this->set_rules(); 
         $this->form_validation->set_message('is_unique', '%s Sudah Digunakan');  
-        $this->form_validation->set_rules('username', 'Username', 'trim|required|is_unique[users.username]');       
+        $this->form_validation->set_rules('username', 'Username', 'trim|required|is_unique[users.username]');        
         if ($this->form_validation->run() == FALSE) {
            $this->create();           
         } else {
             $data = array(                
                 'username' => $this->input->post('username', TRUE),
                 'nama_pengguna' => $this->input->post('nama_pengguna', TRUE),
-                'password' => $this->input->post('password', TRUE),             
+                'password' => $this->bcrypt->hash_password($this->input->post('password', TRUE)),             
                 'status' => $this->input->post('status', TRUE),                               
-                'gld' => $this->input->post('gld', TRUE),                               
+                'gid' => $this->input->post('gid', TRUE)
             );
+            var_dump($data);
+            
             $this->M_user->insert($data);
             $this->session->set_flashdata('message', 'Create Record Success');
             redirect(site_url('user'));
@@ -72,56 +77,62 @@ class User extends CI_Controller {
     }
 
     public function update($id) {
-        $row = $this->M_kualitas->get_by_id($id);
+        $row = $this->M_user->get_by_id($id);
         if ($row) {
             $data = array(
                 'button' => 'Update',
-                'action' => site_url('kualitas/update_action'),
-                'kd_kualitas' => set_value('kd_kualitas', $row->kd_kualitas),
-                'persentase' => set_value('persentase', $row->persentase_kualitas), 
-                'harga_jual' => set_value('harga_jual', $row->harga_jual),               
-                'keterangan' => set_value('keterangan', $row->keterangan_kualitas),                
+                'action' => site_url('user/update_action'),
+                'id_user' => set_value('id_user', $row->id_user),
+                'username' => set_value('username', $row->username), 
+                'password' => set_value('password'),  
+                'nama_pengguna' => set_value('nama_pengguna', $row->nama_pengguna),               
+                'status' => set_value('status', $row->status),           
+                'groups_selected' => set_value('groupds_select', $row->gid) 
             );       
-            $this->template->display('kualitas/form_kualitas', $data);
+            $data['groups'] = $this->M_user->PilihGroups();
+            $this->template->display('user/form_user', $data);
         } else {
             $this->session->set_flashdata('message', 'Record Not Found');
-            redirect(site_url('kualitas'));
+            redirect(site_url('user'));
         }
     }
 
     public function update_action() {
         $this->set_rules();
         if ($this->form_validation->run() == FALSE) {
-            $this->update($this->input->post('kd_kualitas', TRUE));
+            $this->update($this->input->post('id_user', TRUE));
         } else {
-            $id=$this->input->post('kd_kualitas', TRUE);
+            $id=$this->input->post('id_user', TRUE);
             $data = array( 
-                'persentase_kualitas' => $this->input->post('persentase', TRUE),   
-                'harga_jual' => $this->input->post('harga_jual', TRUE),             
-                'keterangan_kualitas' => $this->input->post('keterangan', TRUE)            
+                'username' => $this->input->post('username', TRUE),   
+                'nama_pengguna' => $this->input->post('nama_pengguna', TRUE),             
+                'password' => $this->bcrypt->hash_password($this->input->post('password', TRUE)),  
+                'status' => $this->input->post('status', TRUE),
+                'gid' => $this->input->post('gid', TRUE)            
             );
-            $this->M_kualitas->update($id,$data);
+            $this->M_user->update($id,$data);
             $this->session->set_flashdata('message', 'Update Record Success');
-            redirect(site_url('kualitas'));
+            redirect(site_url('user'));
         }
     }
 
     public function delete($id) {
-        $row = $this->M_kualitas->get_by_id($id);
+        $row = $this->M_user->get_by_id($id);
         if ($row) {
-            $this->M_kualitas->delete($id);
+            $this->M_user->delete($id);
             $this->session->set_flashdata('message', 'Delete Record Success');
-            redirect(site_url('kualitas'));
+            redirect(site_url('user'));
         } else {
             $this->session->set_flashdata('message', 'Record Not Found');
-            redirect(site_url('kualitas'));
+            redirect(site_url('user'));
         }
     }
 
     public function set_rules() { 
-        $this->form_validation->set_rules('persentase', 'Persentase Kualitas', 'trim|required|numeric');
-        $this->form_validation->set_rules('harga_jual', 'Harga Jual', 'trim|required|numeric');
-        $this->form_validation->set_rules('keterangan', 'Keterangan', 'trim|required');
+        $this->form_validation->set_rules('nama_pengguna', 'Nama Pengguna', 'trim|required');
+        $this->form_validation->set_rules('password', 'Password', 'trim|required');
+        $this->form_validation->set_rules('status', 'Status', 'trim|required');
+        $this->form_validation->set_rules('gid', 'Golongan', 'trim|required');
         $this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
     }
 
