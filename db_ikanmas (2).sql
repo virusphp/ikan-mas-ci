@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 07, 2018 at 05:51 AM
+-- Generation Time: May 08, 2018 at 06:40 AM
 -- Server version: 10.1.28-MariaDB
 -- PHP Version: 7.1.10
 
@@ -81,8 +81,8 @@ INSERT INTO `customer` (`kd_customer`, `nama_customer`, `alamat_customer`, `telp
 --
 
 CREATE TABLE `detail_transaksi` (
-  `kd_detail_transaksi` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `no_transaksi` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `kd_detail_transaksi` int(12) NOT NULL,
+  `no_transaksi` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `kd_barang` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `berat_transaksi` decimal(12,2) NOT NULL,
   `qty_transaksi` int(5) NOT NULL,
@@ -93,26 +93,6 @@ CREATE TABLE `detail_transaksi` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `detail_transaksi`
---
-
-INSERT INTO `detail_transaksi` (`kd_detail_transaksi`, `no_transaksi`, `kd_barang`, `berat_transaksi`, `qty_transaksi`, `harga_satuan`, `harga_total`, `status`, `id_user`, `created_at`, `updated_at`) VALUES
-('DT060518001', NULL, 'KD-0003', '1.30', 1, '200000.00', '260000.00', 0, 0, '2018-05-06 14:51:34', NULL),
-('DT060518002', NULL, 'KD-0003', '1.50', 1, '200000.00', '300000.00', 0, 0, '2018-05-06 14:58:54', NULL),
-('DT060518003', NULL, 'KD-0003', '1.50', 1, '200000.00', '300000.00', 0, 0, '2018-05-06 15:01:41', NULL),
-('DT060518004', NULL, 'KD-0003', '1.50', 1, '200000.00', '300000.00', 0, 0, '2018-05-06 15:01:49', NULL),
-('DT060518005', NULL, 'KD-0003', '1.50', 1, '200000.00', '300000.00', 0, 0, '2018-05-06 15:09:25', NULL),
-('DT060518006', NULL, 'KD-0003', '1.50', 1, '200000.00', '300000.00', 0, 0, '2018-05-06 15:11:19', NULL),
-('DT060518007', NULL, 'KD-0003', '1.50', 1, '200000.00', '300000.00', 0, 0, '2018-05-06 15:12:25', NULL),
-('DT060518008', NULL, 'KD-0003', '1.50', 1, '200000.00', '300000.00', 0, 0, '2018-05-06 15:15:21', NULL),
-('DT060518009', NULL, 'KD-0003', '1.30', 1, '200000.00', '260000.00', 0, 0, '2018-05-06 15:18:12', NULL),
-('DT060518010', NULL, 'KD-0003', '1.40', 1, '200000.00', '280000.00', 0, 0, '2018-05-06 15:19:00', NULL),
-('DT060518011', NULL, 'KD-0003', '1.40', 1, '200000.00', '280000.00', 0, 0, '2018-05-06 15:19:14', NULL),
-('DT060518012', NULL, 'KD-0003', '1.40', 1, '200000.00', '280000.00', 0, 0, '2018-05-06 15:20:19', NULL),
-('DT060518013', NULL, 'KD-0003', '1.40', 1, '200000.00', '280000.00', 0, 0, '2018-05-06 15:21:31', NULL),
-('DT060518014', NULL, 'KD-0003', '1.60', 2, '200000.00', '640000.00', 0, 0, '2018-05-06 15:25:29', NULL);
 
 -- --------------------------------------------------------
 
@@ -214,13 +194,14 @@ INSERT INTO `tipe_transaksi` (`kd_tipe_transaksi`, `nama_transaksi`, `created_at
 --
 
 CREATE TABLE `transaksi` (
-  `no_transaksi` varchar(12) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `no_transaksi` varchar(15) COLLATE utf8mb4_unicode_ci NOT NULL,
   `kd_tipe_transaksi` varchar(12) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `tanggal_transaksi` datetime NOT NULL,
+  `tanggal_transaksi` date NOT NULL,
   `grand_total` decimal(10,0) NOT NULL,
-  `keterangan_lain` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `kd_customer` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `id_user` tinyint(1) NOT NULL
+  `keterangan_lain` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `customer` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `id_user` tinyint(1) NOT NULL,
+  `created-at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -345,8 +326,7 @@ ALTER TABLE `barang`
 -- Constraints for table `detail_transaksi`
 --
 ALTER TABLE `detail_transaksi`
-  ADD CONSTRAINT `kd_barang` FOREIGN KEY (`kd_barang`) REFERENCES `barang` (`kd_barang`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `no_transaksi` FOREIGN KEY (`no_transaksi`) REFERENCES `transaksi` (`no_transaksi`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `kd_barang` FOREIGN KEY (`kd_barang`) REFERENCES `barang` (`kd_barang`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `transaksi`

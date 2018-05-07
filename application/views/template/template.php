@@ -18,6 +18,8 @@
 		<!-- Custom CSS -->
 		<link href="<?php echo base_url();?>assets/css/style.css" rel="stylesheet" type="text/css" />	
 		<link href="<?php echo base_url();?>assets/plugins/select2/css/select2.min.css" rel="stylesheet" type="text/css"/>
+		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/plugins/datepicker/datepicker3.css" >
+    	<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/plugins/datepicker/bootstrap-datetimepicker.min.css" >
 		
 		<!-- BEGIN CSS for this page -->
 
@@ -74,10 +76,15 @@
 
 <!-- App js -->
 <script src="<?php echo base_url();?>assets/js/pikeadmin.js"></script>
-<script src="<?= base_url()?>assets/plugins/select2/js/select2.min.js"></script>
+<script src="<?php echo base_url()?>assets/plugins/select2/js/select2.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/plugins/datepicker/bootstrap-datepicker.js"></script>
+<script src="<?php echo base_url(); ?>assets/plugins/datepicker/locales/bootstrap-datepicker.id.js"></script>
 <script>								
 $(document).ready(function() {
     $('.select2').select2();
+});
+$("#datepicker").datepicker({
+	autoclose: true  
 });
 </script>
 

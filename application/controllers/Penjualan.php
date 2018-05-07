@@ -14,7 +14,7 @@ class Penjualan extends CI_Controller {
 
     public function index() 
     {                     
-        $this->template->display('transaksi/penjualan/list_penjualan');
+        $this->template->display('penjualan/list_penjualan');
     }
 
     public function view_data() {
@@ -38,9 +38,10 @@ class Penjualan extends CI_Controller {
     }
 
     public function create()
-    {        
+    {   
+        $data['no_nota']=$this->M_transaksi->nota_penjualan();     
         $data['barang']=$this->db->get('barang')->result();
-        $this->template->display('transaksi/penjualan/form_penjualan',$data);
+        $this->template->display('penjualan/form_penjualan',$data);
     }
 
     public function addbarang_ajax()
@@ -55,6 +56,7 @@ class Penjualan extends CI_Controller {
             'qty_transaksi'=>$this->input->get('qty'),
             'harga_satuan'=>$this->input->get('harga'),
             'harga_total'=>$berat*$qty*$harga,
+            'id_user'=>$this->session->userdata('uid'),
         );
         $this->db->insert('detail_transaksi',$data);
     }
@@ -68,8 +70,8 @@ class Penjualan extends CI_Controller {
                     <td>$q->nama_barang</td>                
                     <td>$q->berat_transaksi</td>
                     <td>$q->qty_transaksi</td>
-                    <td>$q->harga_satuan</td>
-                    <td>$q->harga_total</td>
+                    <td>".rupiah($q->harga_satuan)."</td>
+                    <td>".rupiah($q->harga_total)."</td>
                     <td><a role='button' onClick='delete_temp($q->kd_detail_transaksi)' class='btn btn-sm btn-outline-danger'><i class='fa fa-trash-o'></i></a></td>
                 </tr>";
         }
@@ -91,87 +93,45 @@ class Penjualan extends CI_Controller {
         $this->M_transaksi->hapus_temp($id);        
     }
 
-    public function create_action() 
+    function hitung_total() {        
+       $total= $this->M_transaksi->total_harga(); 
+       if(!empty($total->jumlah_total)){
+            echo $total->jumlah_total; 
+       }else{
+            echo '0';
+       }   
+         
+    }
+
+    public function transaksi() 
     {
-        $this->set_rules(); 
-        $this->form_validation->set_message('is_unique', '%s Sudah Digunakan');  
-        $this->form_validation->set_rules('kd_barang', 'Kode Barang', 'trim|required|is_unique[barang.kd_barang]');       
+        $this->set_rules();               
         if ($this->form_validation->run() == FALSE) {
-           $this->create();           
+            echo json_encode(array('status' => 0, 'pesan' => validation_errors('')));        
         } else {
             $data = array(                
-                'kd_barang' => $this->input->post('kd_barang', TRUE),
-                'nama_barang' => $this->input->post('nama_barang', TRUE),
-                'satuan_barang' => $this->input->post('satuan', TRUE),
-                'kd_kualitas' => $this->input->post('kd_kualitas', TRUE),
-                'keterangan_barang' => $this->input->post('keterangan', TRUE),
-                // 'harga_jual' => $this->input->post('harga_jual', TRUE),                
+                'no_transaksi' => $this->input->post('no_nota', TRUE),
+                'kd_tipe_transaksi' => 'JL0001',
+                'tanggal_transaksi' => tgl_db($this->input->post('tanggal', TRUE)),
+                'grand_total' => $this->input->post('grand_total', TRUE),
+                'customer' => $this->input->post('pelanggan', TRUE),
+                'id_user' => $this->session->userdata('uid'),                
             );
-            $this->M_barang->insert($data);
-            $this->session->set_flashdata('message', 'Create Record Success');
-            redirect(site_url('barang'));
-        }
-    }
-
-    public function update($id) {
-        $row = $this->M_barang->get_by_id($id);
-        if ($row) {
-            $data = array(
-                'button' => 'Update',
-                'action' => site_url('barang/update_action'),
-                'kd_barang' => set_value('kd_barang', $row->kd_barang),
-                'nama_barang' => set_value('nama_barang', $row->nama_barang),
-                'satuan' => set_value('satuan', $row->satuan_barang),
-                'kualitas_selected' => set_value('kualitas_selected', $row->kd_kualitas),
-                // 'harga_jual' => set_value('harga_jual', $row->harga_jual),
-                'keterangan' => set_value('keterangan', $row->keterangan_barang),                
-            );
-            $data['kualitas'] = $this->M_barang->PilihKualitas();           
-            $this->template->display('barang/form_barang', $data);
-        } else {
-            $this->session->set_flashdata('message', 'Record Not Found');
-            redirect(site_url('barang'));
-        }
-    }
-
-    public function update_action() {
-        $this->set_rules();
-        if ($this->form_validation->run() == FALSE) {
-            $this->update($this->input->post('kd_barang', TRUE));
-        } else {
-            $id=$this->input->post('kd_barang', TRUE);
-            $data = array( 
-                'nama_barang' => $this->input->post('nama_barang', TRUE),
-                'satuan_barang' => $this->input->post('satuan', TRUE),
-                'kd_kualitas' => $this->input->post('kd_kualitas', TRUE),
-                'keterangan_barang' => $this->input->post('keterangan', TRUE),
-                // 'harga_jual' => $this->input->post('harga_jual', TRUE),                
-            );
-            $this->M_barang->update($id,$data);
-            $this->session->set_flashdata('message', 'Update Record Success');
-            redirect(site_url('barang'));
-        }
-    }
-
-    public function delete($id) {
-        $row = $this->M_barang->get_by_id($id);
-        if ($row) {
-            $this->M_barang->delete($id);
-            $this->session->set_flashdata('message', 'Delete Record Success');
-            redirect(site_url('barang'));
-        } else {
-            $this->session->set_flashdata('message', 'Record Not Found');
-            redirect(site_url('barang'));
+            $no_nota=$this->input->post('no_nota', TRUE);
+            $this->M_transaksi->insert($data);
+            $this->M_transaksi->update_temp($no_nota); 
+            $this->index();
         }
     }
 
     public function set_rules() { 
-        $this->form_validation->set_rules('nama_barang', 'Nama Barang', 'trim|required');
-        $this->form_validation->set_rules('satuan', 'Satuan', 'trim|required');
-        $this->form_validation->set_rules('kd_kualitas', 'Kualitas Barang', 'trim|required');
-        // $this->form_validation->set_rules('harga_jual', 'Harga Jual', 'trim|required|numeric');
-        $this->form_validation->set_rules('keterangan', 'Keterangan', 'trim|required');
-        $this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
+        $this->form_validation->set_message('is_unique', '%s Sudah Digunakan');  
+        $this->form_validation->set_rules('no_nota', 'No Transaksi', 'trim|required|is_unique[transaksi.no_transaksi]');
+        $this->form_validation->set_rules('pelanggan', 'Nama Pelanggan', 'trim|required');
+        $this->form_validation->set_rules('grand_total', 'Transaksi Barang', 'trim|required');
+        $this->form_validation->set_rules('tanggal', 'Tanggal Transaksi', 'trim|required');
+        $this->form_validation->set_message('required', '%s harus diisi');       
+        //$this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
     }
 
 
