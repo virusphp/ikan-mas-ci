@@ -9,6 +9,18 @@ class M_user extends CI_Model {
     public $id = 'id_user';
     public $order = 'DESC';
     
+    function PilihGroups()
+    {              
+        $result = $this->db->get('groups');      
+        $data[''] = '- Pilih Groups -';
+        if ($result->num_rows() > 0) {
+            foreach ($result->result() as $row) {
+            // tentukan value (sebelah kiri) dan labelnya (sebelah kanan)
+                $data[$row->gid] = $row->usergroup;
+            }
+        }
+        return $data;
+    }
     // get all
     function get_all() {
         $this->db->order_by($this->id, $this->order);
