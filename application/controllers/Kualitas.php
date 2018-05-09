@@ -25,7 +25,7 @@ class Kualitas extends CI_Controller {
             $query[] = array(
                 'no' => $no++,
                 'kd_kualitas'=>$q->kd_kualitas,               
-                'persentase' => $q->persentase_kualitas, 
+                'persentase' => persen($q->persentase_kualitas), 
                 'harga_jual' => rupiah($q->harga_jual),                       
                 'keterangan'=>$q->keterangan_kualitas,
                 'aksi' => array(

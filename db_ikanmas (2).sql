@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 08, 2018 at 06:40 AM
+-- Generation Time: May 09, 2018 at 11:05 PM
 -- Server version: 10.1.28-MariaDB
 -- PHP Version: 7.1.10
 
@@ -45,6 +45,7 @@ CREATE TABLE `barang` (
 --
 
 INSERT INTO `barang` (`kd_barang`, `kd_kualitas`, `nama_barang`, `satuan_barang`, `harga_beli`, `total_barang`, `keterangan_barang`, `created_at`, `updated_at`) VALUES
+('B0012', '10003', 'Gelang', 'Gram', NULL, NULL, 'Bagus', '2018-05-09 14:54:52', NULL),
 ('KD-0003', 'KW-001', 'Kalung', 'Gram', '0.00', '0.00', 'asdasdad', '2018-04-27 13:17:45', '2018-04-28 07:43:04'),
 ('KD-002', '10003', 'Cincin Kawin', 'Gram', NULL, NULL, 'Baik', '2018-05-06 11:28:19', NULL),
 ('KD-005', '10004', 'Anting-Anting2', 'Gram', NULL, NULL, 'Ok', '2018-05-06 11:29:31', '2018-05-06 18:30:03');
@@ -94,6 +95,21 @@ CREATE TABLE `detail_transaksi` (
   `updated_at` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `detail_transaksi`
+--
+
+INSERT INTO `detail_transaksi` (`kd_detail_transaksi`, `no_transaksi`, `kd_barang`, `berat_transaksi`, `qty_transaksi`, `harga_satuan`, `harga_total`, `status`, `id_user`, `created_at`, `updated_at`) VALUES
+(1805090001, 'TRJ1805090001', 'KD-0003', '2.00', 1, '200000.00', '400000.00', 1, 1, '2018-05-09 12:09:58', '2018-05-09 19:10:01'),
+(1805090002, 'TRJ1805090002', 'KD-005', '2.00', 1, '250000.00', '500000.00', 1, 1, '2018-05-09 12:12:26', '2018-05-09 19:12:28'),
+(1805090003, 'TRJ1805090003', 'KD-005', '2.00', 1, '250000.00', '500000.00', 1, 1, '2018-05-09 12:13:27', '2018-05-09 19:13:32'),
+(1805090005, 'TRJ1805090004', 'KD-002', '2.00', 1, '175000.00', '350000.00', 1, 1, '2018-05-09 12:22:30', '2018-05-09 19:22:39'),
+(1805090006, 'TRJ1805090005', 'KD-002', '1.00', 1, '175000.00', '175000.00', 1, 1, '2018-05-09 12:23:46', '2018-05-09 19:24:00'),
+(1805090007, 'TRJ1805090006', 'KD-0003', '2.00', 1, '200000.00', '400000.00', 1, 1, '2018-05-09 13:25:24', '2018-05-09 20:25:33'),
+(1805090008, 'TRJ1805090007', 'KD-005', '2.00', 1, '250000.00', '500000.00', 1, 1, '2018-05-09 13:26:40', '2018-05-09 20:27:15'),
+(1805090011, 'TRB1805090002', 'KD-005', '10.00', 1, '130000.00', '1300000.00', 1, 1, '2018-05-09 16:00:12', '2018-05-09 23:01:21'),
+(1805090012, 'TRB1805090002', 'KD-002', '10.00', 12, '50000.00', '6000000.00', 1, 1, '2018-05-09 16:01:18', '2018-05-09 23:01:21');
+
 -- --------------------------------------------------------
 
 --
@@ -135,7 +151,7 @@ CREATE TABLE `kualitas` (
 --
 
 INSERT INTO `kualitas` (`kd_kualitas`, `persentase_kualitas`, `harga_jual`, `keterangan_kualitas`, `created_at`, `updated_at`) VALUES
-('10003', '80.0', '0', 'murni', '2018-04-27 09:57:08', '2018-04-27 16:57:32'),
+('10003', '80.0', '175000', 'murni', '2018-04-27 09:57:08', '2018-05-09 19:22:18'),
 ('10004', '50.0', '250000', 'campuran', '2018-04-27 09:57:24', '2018-04-28 07:42:30'),
 ('1005', '80.0', '300000', 'campuran 20 persen perak', '2018-04-27 22:46:09', '2018-04-28 07:38:58'),
 ('KW-001', '37.6', '200000', 'baik', '2018-04-28 00:29:12', '2018-04-28 07:38:49');
@@ -198,11 +214,26 @@ CREATE TABLE `transaksi` (
   `kd_tipe_transaksi` varchar(12) COLLATE utf8mb4_unicode_ci NOT NULL,
   `tanggal_transaksi` date NOT NULL,
   `grand_total` decimal(10,0) NOT NULL,
-  `keterangan_lain` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `keterangan_lain` varchar(225) COLLATE utf8mb4_unicode_ci DEFAULT 'Transaksi Umum',
   `customer` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `kd_supplier` varchar(12) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `id_user` tinyint(1) NOT NULL,
   `created-at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `transaksi`
+--
+
+INSERT INTO `transaksi` (`no_transaksi`, `kd_tipe_transaksi`, `tanggal_transaksi`, `grand_total`, `keterangan_lain`, `customer`, `kd_supplier`, `id_user`, `created-at`) VALUES
+('TRB1805090002', 'BL0001', '2018-05-09', '7300000', 'Transaksi Umum', NULL, 'SP-0002', 1, '2018-05-09 16:01:21'),
+('TRJ1805090001', 'JL0001', '2018-05-09', '400000', NULL, 'anda', NULL, 1, '2018-05-09 12:10:01'),
+('TRJ1805090002', 'JL0001', '2018-05-09', '500000', NULL, 'adasd', NULL, 1, '2018-05-09 12:12:28'),
+('TRJ1805090003', 'JL0001', '2018-05-09', '500000', NULL, 'qeq', NULL, 1, '2018-05-09 12:13:32'),
+('TRJ1805090004', 'JL0001', '2018-05-09', '350000', NULL, 'khkjhj', NULL, 1, '2018-05-09 12:22:39'),
+('TRJ1805090005', 'JL0001', '2018-05-09', '175000', NULL, 'qweqeqe', NULL, 1, '2018-05-09 12:24:00'),
+('TRJ1805090006', 'JL0001', '2018-05-09', '400000', '\'Penjualan Umum\'', 'warkono', NULL, 1, '2018-05-09 13:25:33'),
+('TRJ1805090007', 'JL0001', '2018-05-09', '500000', 'jual ke suplier emas pinggir jalan', 'meong', NULL, 1, '2018-05-09 13:27:15');
 
 -- --------------------------------------------------------
 
