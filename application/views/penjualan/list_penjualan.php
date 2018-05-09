@@ -63,12 +63,12 @@
             "ajax": "<?php echo base_url('penjualan/view_data'); ?>",
             "columns": [
                 {"mData": "no"},
-                {"mData": "kd_barang"},
-                {"mData": "nama_barang"},
-                {"mData": "satuan"},
-                {"mData": "kualitas"},
-                {"mData": "harga_jual"},
+                {"mData": "no_transaksi"},
+                {"mData": "tanggal"},
+                {"mData": "grand_total"},
+                {"mData": "nama_customer"},
                 {"mData": "keterangan"},
+                {"mData": "kasir"},
                 {"mData": "aksi"},
             ]
         });

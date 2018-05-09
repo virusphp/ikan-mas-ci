@@ -5,6 +5,17 @@ if (!defined('BASEPATH'))
 
 class M_transaksi extends CI_Model 
 {
+    public $table = 'transaksi';
+    public $id = 'no_transaksi';
+
+    function getall_penjualan()
+    {
+        $this->db->select('t.no_transaksi,t.tanggal_transaksi,t.grand_total,t.customer,t.keterangan_lain,u.nama_pengguna');
+        $this->db->from('transaksi as t');
+        $this->db->join('users as u','t.id_user=u.id_user');
+        $this->db->order_by('created-at','DESC');
+        return $this->db->get()->result();  
+    }
 
     function nota_penjualan() 
     {        
@@ -68,6 +79,42 @@ class M_transaksi extends CI_Model
         $this->db->where('id_user', $uid);
         $this->db->where('status',0);
         $this->db->update('detail_transaksi', $data);
+    }
+
+     // get data by id
+     function get_by_id($id) {
+        $this->db->where($this->id, $id);
+        return $this->db->get($this->table)->row();
+    }
+
+    //get transaksi detail
+    function getdetail_id($id)
+    {
+        $this->db->select('t.no_transaksi,t.tanggal_transaksi,t.grand_total,t.customer,t.keterangan_lain,u.nama_pengguna,tp.kd_tipe_transaksi,tp.nama_transaksi');
+        $this->db->from('transaksi as t');
+        $this->db->join('users as u','t.id_user=u.id_user');
+        $this->db->join('tipe_transaksi as tp','tp.kd_tipe_transaksi=t.kd_tipe_transaksi');
+        $this->db->where($this->id,$id);
+        return $this->db->get()->row();  
+    }
+
+    function getdetail_all($id)
+    {        
+        $this->db->select('b.kd_barang,b.nama_barang,d.kd_detail_transaksi,d.berat_transaksi,d.qty_transaksi,d.harga_satuan,d.harga_total');
+        $this->db->from('detail_transaksi as d'); 
+        $this->db->join('barang as b','b.kd_barang = d.kd_barang');
+        $this->db->where('status',1);
+        $this->db->where('no_transaksi',$id);
+        $this->db->order_by('kd_detail_transaksi','DESC');
+        return $this->db->get()->result();  
+    }
+
+     // delete data
+     function delete($id) {
+        $this->db->where($this->id, $id);
+        $this->db->delete($this->table);
+        $this->db->where($this->id, $id);
+        $this->db->delete('detail_transaksi');
     }
 
 }

@@ -19,18 +19,17 @@ class Penjualan extends CI_Controller {
 
     public function view_data() {
         $no = 1;
-        $getdata = $this->M_transaksi->getall_penjualan();
-        
+        $getdata = $this->M_transaksi->getall_penjualan();        
         foreach ($getdata as $q) {
             $query[] = array(
                 'no' => $no++,
-                'no_transaksi'=>$q->no_transaksi,
-                'tanggal_transaksi' => $q->tanggal_transaksi,
+                'no_transaksi'=>anchor('penjualan/detail/'.$q->no_transaksi,$q->no_transaksi,''),
+                'tanggal' => tgl_lengkap($q->tanggal_transaksi),
                 'grand_total' => rupiah($q->grand_total),
-                'nama_customer' => $q->nama_customer,
+                'nama_customer' => $q->customer,
                 'keterangan' => $q->keterangan_lain,
                 'kasir'=>$q->nama_pengguna,
-                'aksi' => array(anchor('penjualan/update/' . $q->no_transaksi, '<i class="fa fa-pencil-square-o " data-toggle="tooltip" title="Edit"></i>', 'class="btn btn-warning btn-sm"') . ' ' . anchor('penjualan/delete/' . $q->no_transaksi, '<i class="fa fa-trash"></i>', 'class="btn btn-danger btn-sm" data-toggle="tooltip" title="delete" onclick="javasciprt: return confirm(\'Data Akan Dihapus ?\')"')),
+                'aksi' => array(anchor('penjualan/delete/' . $q->no_transaksi, '<i class="fa fa-trash"></i>', 'class="btn btn-danger btn-sm" data-toggle="tooltip" title="delete" onclick="javasciprt: return confirm(\'Data Akan Dihapus ?\')"')),
             );
         }
         $result = array('data' => $query);
@@ -107,8 +106,9 @@ class Penjualan extends CI_Controller {
     {
         $this->set_rules();               
         if ($this->form_validation->run() == FALSE) {
-            echo json_encode(array('status' => 0, 'pesan' => validation_errors('')));        
+            echo json_encode(array('status' => false, 'pesan' => validation_errors('')));        
         } else {
+            $keterangan=$this->input->post('keterangan', TRUE);
             $data = array(                
                 'no_transaksi' => $this->input->post('no_nota', TRUE),
                 'kd_tipe_transaksi' => 'JL0001',
@@ -117,10 +117,38 @@ class Penjualan extends CI_Controller {
                 'customer' => $this->input->post('pelanggan', TRUE),
                 'id_user' => $this->session->userdata('uid'),                
             );
+            if(!empty($keterangan)){
+                $data['keterangan_lain']=$keterangan;
+            }
             $no_nota=$this->input->post('no_nota', TRUE);
             $this->M_transaksi->insert($data);
             $this->M_transaksi->update_temp($no_nota); 
-            $this->index();
+            echo json_encode(array("status" => true,'pesan'=>'Transaksi Anda Berhasil'));
+        }
+    }
+
+    public function detail($id)
+    {
+        $row = $this->M_transaksi->get_by_id($id);
+        if ($row) {
+            $data['transaksi'] = $this->M_transaksi->getdetail_id($id);
+            $data['detail'] = $this->M_transaksi->getdetail_all($id);
+            $this->template->display('penjualan/detail_penjualan',$data);
+        }else{
+            redirect('penjualan');
+        }
+        
+    }
+
+    public function delete($id) {
+        $row = $this->M_transaksi->get_by_id($id);
+        if ($row) {
+            $this->M_transaksi->delete($id);
+            $this->session->set_flashdata('message', 'Delete Record Success');
+            redirect(site_url('penjualan'));
+        } else {
+            $this->session->set_flashdata('message', 'Record Not Found');
+            redirect(site_url('penjualan'));
         }
     }
 

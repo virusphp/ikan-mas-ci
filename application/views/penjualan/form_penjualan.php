@@ -30,14 +30,26 @@
                                 <input type="text" class="form-control" name="tanggal" id="datepicker" placeholder="Tanggal Transaksi" required="" value="<?= date('d-m-Y') ?>">        
                             </div>
                             <div class="form-group">
-                                <label>Kasir</label>
+                                <label>Nama User</label>
                                 <select name="kasir" id="kasir" class="form-control" required >
                                     <option value="<?= $this->session->userdata('uid'); ?>"><?= $this->session->userdata('nama_pengguna'); ?></option>
                                 </select>
                             </div>
                         </form>
                     </div>
-                </div>                
+                </div>   
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <h3><i class="fa fa-file-text-o fa-fw"></i> Keterangan</h3>
+                    </div>
+                    <div class="card-body">
+                        <form>
+                            <div class="form-group">
+                                <label>Keterangan Jual <span class="text-warning">(optional)</span></label>
+                                <textarea name="keterangan" id="keterangan" rows="2" class="form-control"></textarea>
+                            </div>                           
+                    </div>
+                </div>                             
             </div>
             <div class="col-sm-9">
                 <div class="card mb-9">
@@ -45,7 +57,7 @@
                         <h5 class="judul-transaksi">
                             <i class="fa fa-shopping-cart fa-fw"></i> Penjualan <i class="fa fa-angle-right fa-fw"></i>
                             Transaksi
-                            <a href="" class="pull-right"><i class="fa fa-refresh"></i> Refresh Halaman</a>
+                            <a href="<?= site_url('penjualan');?>" class="pull-right"><i class="fa fa-caret-left bigfonts"></i> Kembali</a>
                         </h5>
                     </div>
                     <div class="card-body">
@@ -240,17 +252,18 @@
         FormData += "&tanggal="+encodeURI($('#datepicker').val());
         FormData += "&pelanggan="+$('#pelanggan').val();      
         FormData += "&grand_total="+$('#TotalJual').val();
+        FormData += "&keterangan="+$('#keterangan').val();
         $.ajax({
             url: "<?php echo site_url('penjualan/transaksi'); ?>",
             type: "POST",
             data: FormData,
             dataType:'json',
             success: function(data){
-                if(data.status == 0){
+                if(data.status == false){
                     alert(data.pesan);
 				    window.location.href="<?php echo site_url('penjualan/create'); ?>";
                 }else{
-                    window.location.href="<?php echo site_url('penjualan'); ?>";
+                    window.location.href="<?php echo site_url('penjualan'); ?>";                   
                 }                
             }
         });
