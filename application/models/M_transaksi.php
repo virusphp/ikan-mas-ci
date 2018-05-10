@@ -13,7 +13,7 @@ class M_transaksi extends CI_Model
         $this->db->select('t.no_transaksi,t.tanggal_transaksi,t.grand_total,t.customer,t.keterangan_lain,u.nama_pengguna');
         $this->db->from('transaksi as t');
         $this->db->join('users as u','t.id_user=u.id_user');
-        $this->db->where('t.kd_tipe_transaksi','JL0001');
+        $this->db->where('t.kd_tipe_transaksi','JK-0001');
         $this->db->order_by('created-at','DESC');
         return $this->db->get()->result();  
     }
@@ -24,14 +24,14 @@ class M_transaksi extends CI_Model
         $this->db->from('transaksi as t');
         $this->db->join('users as u','t.id_user=u.id_user');
         $this->db->join('supplier as s','t.kd_supplier=s.kd_supplier');
-        $this->db->where('t.kd_tipe_transaksi','BL0001');
+        $this->db->where('t.kd_tipe_transaksi','BG-0001');
         $this->db->order_by('created-at','DESC');
         return $this->db->get()->result();  
     }
 
     function nota_penjualan() 
     {        
-        $jenis = "TRJ".date('ymd');
+        $jenis = "TJK".date('ymd');
         $query = $this->db->query("SELECT max(no_transaksi) as maxID FROM transaksi WHERE no_transaksi LIKE '$jenis%'")->row_array();
         $idMax = $query['maxID'];
         $noUrut = (int) substr($idMax, 9, 4);
@@ -42,7 +42,7 @@ class M_transaksi extends CI_Model
 
     function nota_pembelian() 
     {        
-        $jenis = "TRB".date('ymd');
+        $jenis = "TBG".date('ymd');
         $query = $this->db->query("SELECT max(no_transaksi) as maxID FROM transaksi WHERE no_transaksi LIKE '$jenis%'")->row_array();
         $idMax = $query['maxID'];
         $noUrut = (int) substr($idMax, 9, 4);

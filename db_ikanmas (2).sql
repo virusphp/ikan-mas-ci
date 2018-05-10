@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 09, 2018 at 11:05 PM
+-- Generation Time: May 10, 2018 at 06:47 PM
 -- Server version: 10.1.28-MariaDB
 -- PHP Version: 7.1.10
 
@@ -33,9 +33,11 @@ CREATE TABLE `barang` (
   `kd_kualitas` varchar(12) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `nama_barang` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `satuan_barang` varchar(5) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `harga_beli` decimal(12,2) DEFAULT NULL,
-  `total_barang` decimal(5,2) DEFAULT NULL,
   `keterangan_barang` text COLLATE utf8mb4_unicode_ci,
+  `berat_gudang` decimal(12,2) NOT NULL,
+  `qty_gudang` int(12) NOT NULL,
+  `berat_kasir` decimal(12,2) NOT NULL,
+  `qty_kasir` int(12) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -44,11 +46,15 @@ CREATE TABLE `barang` (
 -- Dumping data for table `barang`
 --
 
-INSERT INTO `barang` (`kd_barang`, `kd_kualitas`, `nama_barang`, `satuan_barang`, `harga_beli`, `total_barang`, `keterangan_barang`, `created_at`, `updated_at`) VALUES
-('B0012', '10003', 'Gelang', 'Gram', NULL, NULL, 'Bagus', '2018-05-09 14:54:52', NULL),
-('KD-0003', 'KW-001', 'Kalung', 'Gram', '0.00', '0.00', 'asdasdad', '2018-04-27 13:17:45', '2018-04-28 07:43:04'),
-('KD-002', '10003', 'Cincin Kawin', 'Gram', NULL, NULL, 'Baik', '2018-05-06 11:28:19', NULL),
-('KD-005', '10004', 'Anting-Anting2', 'Gram', NULL, NULL, 'Ok', '2018-05-06 11:29:31', '2018-05-06 18:30:03');
+INSERT INTO `barang` (`kd_barang`, `kd_kualitas`, `nama_barang`, `satuan_barang`, `keterangan_barang`, `berat_gudang`, `qty_gudang`, `berat_kasir`, `qty_kasir`, `created_at`, `updated_at`) VALUES
+('22CK', 'KW02', 'Cicin Krincing', 'Gram', 'baik', '40.00', 30, '0.00', 0, '2018-05-10 09:23:14', '2018-05-10 18:37:27'),
+('22CN', 'KW01', 'Cincin', 'Gram', 'baik', '0.00', 0, '0.00', 0, '2018-05-10 09:20:53', NULL),
+('22GB', 'KW02', 'Gelang Bayi', 'Gram', 'Baik', '0.00', 0, '0.00', 0, '2018-05-06 11:28:19', '2018-05-10 16:16:16'),
+('22GK', 'KW04', 'Gelang Krincing', 'Gram', 'asdasdad', '0.00', 0, '0.00', 0, '2018-04-27 13:17:45', '2018-05-10 16:15:52'),
+('22GL', 'KW02', 'Gelang', 'Gram', 'Bagus', '10.00', 5, '0.00', 0, '2018-05-09 14:54:52', '2018-05-10 18:39:04'),
+('22KL', 'KW03', 'Kalung', 'Gram', 'Ok', '0.00', 0, '0.00', 0, '2018-05-06 11:29:31', '2018-05-10 16:20:08'),
+('22LT', 'KW01', 'Liontin', 'Gram', 'baik', '0.00', 0, '0.00', 0, '2018-05-10 09:23:43', NULL),
+('22MR', 'KW01', 'Markis', 'Gram', 'baik', '0.00', 0, '0.00', 0, '2018-05-10 09:24:10', NULL);
 
 -- --------------------------------------------------------
 
@@ -100,15 +106,30 @@ CREATE TABLE `detail_transaksi` (
 --
 
 INSERT INTO `detail_transaksi` (`kd_detail_transaksi`, `no_transaksi`, `kd_barang`, `berat_transaksi`, `qty_transaksi`, `harga_satuan`, `harga_total`, `status`, `id_user`, `created_at`, `updated_at`) VALUES
-(1805090001, 'TRJ1805090001', 'KD-0003', '2.00', 1, '200000.00', '400000.00', 1, 1, '2018-05-09 12:09:58', '2018-05-09 19:10:01'),
-(1805090002, 'TRJ1805090002', 'KD-005', '2.00', 1, '250000.00', '500000.00', 1, 1, '2018-05-09 12:12:26', '2018-05-09 19:12:28'),
-(1805090003, 'TRJ1805090003', 'KD-005', '2.00', 1, '250000.00', '500000.00', 1, 1, '2018-05-09 12:13:27', '2018-05-09 19:13:32'),
-(1805090005, 'TRJ1805090004', 'KD-002', '2.00', 1, '175000.00', '350000.00', 1, 1, '2018-05-09 12:22:30', '2018-05-09 19:22:39'),
-(1805090006, 'TRJ1805090005', 'KD-002', '1.00', 1, '175000.00', '175000.00', 1, 1, '2018-05-09 12:23:46', '2018-05-09 19:24:00'),
-(1805090007, 'TRJ1805090006', 'KD-0003', '2.00', 1, '200000.00', '400000.00', 1, 1, '2018-05-09 13:25:24', '2018-05-09 20:25:33'),
-(1805090008, 'TRJ1805090007', 'KD-005', '2.00', 1, '250000.00', '500000.00', 1, 1, '2018-05-09 13:26:40', '2018-05-09 20:27:15'),
-(1805090011, 'TRB1805090002', 'KD-005', '10.00', 1, '130000.00', '1300000.00', 1, 1, '2018-05-09 16:00:12', '2018-05-09 23:01:21'),
-(1805090012, 'TRB1805090002', 'KD-002', '10.00', 12, '50000.00', '6000000.00', 1, 1, '2018-05-09 16:01:18', '2018-05-09 23:01:21');
+(1805090011, 'TBG1805090002', '22KL', '10.00', 1, '130000.00', '1300000.00', 1, 1, '2018-05-09 16:00:12', '2018-05-09 23:01:21'),
+(1805090012, 'TBG1805090002', '22GB', '10.00', 12, '50000.00', '6000000.00', 1, 1, '2018-05-09 16:01:18', '2018-05-09 23:01:21'),
+(1805100001, 'TBG1805100001', '22GL', '10.00', 1, '130000.00', '1300000.00', 1, 1, '2018-05-10 08:11:46', '2018-05-10 15:11:58'),
+(1805100002, 'TBG1805100002', '22KL', '10.00', 5, '130000.00', '6500000.00', 1, 1, '2018-05-10 08:32:41', '2018-05-10 15:33:06'),
+(1805100003, 'TBG1805100002', '22GB', '50.00', 46, '150000.00', '99999999.99', 1, 1, '2018-05-10 08:33:02', '2018-05-10 15:33:06'),
+(1805100004, 'TJK1805100001', '22GB', '0.79', 1, '175000.00', '138250.00', 1, 1, '2018-05-10 08:51:27', '2018-05-10 15:54:02'),
+(1805100005, 'TJK1805100001', '22GB', '1.05', 1, '175000.00', '183750.00', 1, 1, '2018-05-10 08:52:30', '2018-05-10 15:54:02'),
+(1805100006, 'TJK1805100002', '22GL', '1.00', 1, '175000.00', '175000.00', 1, 1, '2018-05-10 09:09:21', '2018-05-10 16:10:00'),
+(1805100007, 'TJK1805100002', '22GK', '2.00', 1, '200000.00', '400000.00', 1, 1, '2018-05-10 09:09:37', '2018-05-10 16:10:00'),
+(1805100008, 'TBG1805100003', '22CK', '20.00', 15, '200000.00', '60000000.00', 1, 2, '2018-05-10 11:13:15', '2018-05-10 18:37:27'),
+(1805100009, 'TBG1805100004', '22GL', '10.00', 5, '100000.00', '5000000.00', 1, 1, '2018-05-10 11:39:02', '2018-05-10 18:39:04');
+
+--
+-- Triggers `detail_transaksi`
+--
+DELIMITER $$
+CREATE TRIGGER `before_update_nota` BEFORE UPDATE ON `detail_transaksi` FOR EACH ROW BEGIN
+    UPDATE barang
+    set berat_gudang =berat_gudang+OLD.berat_transaksi,
+    qty_gudang=qty_gudang+OLD.qty_transaksi
+    WHERE kd_barang=OLD.kd_barang;
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -139,7 +160,7 @@ INSERT INTO `groups` (`gid`, `usergroup`, `level_akses`) VALUES
 
 CREATE TABLE `kualitas` (
   `kd_kualitas` varchar(12) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `persentase_kualitas` decimal(3,1) NOT NULL,
+  `persentase_kualitas` decimal(4,1) NOT NULL,
   `harga_jual` decimal(12,0) NOT NULL,
   `keterangan_kualitas` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -151,10 +172,10 @@ CREATE TABLE `kualitas` (
 --
 
 INSERT INTO `kualitas` (`kd_kualitas`, `persentase_kualitas`, `harga_jual`, `keterangan_kualitas`, `created_at`, `updated_at`) VALUES
-('10003', '80.0', '175000', 'murni', '2018-04-27 09:57:08', '2018-05-09 19:22:18'),
-('10004', '50.0', '250000', 'campuran', '2018-04-27 09:57:24', '2018-04-28 07:42:30'),
-('1005', '80.0', '300000', 'campuran 20 persen perak', '2018-04-27 22:46:09', '2018-04-28 07:38:58'),
-('KW-001', '37.6', '200000', 'baik', '2018-04-28 00:29:12', '2018-04-28 07:38:49');
+('KW01', '100.0', '300000', '24 karat', '2018-04-27 22:46:09', '2018-05-10 16:14:01'),
+('KW02', '80.0', '275000', '12 karat', '2018-04-27 09:57:08', '2018-05-10 16:14:24'),
+('KW03', '50.0', '250000', 'campuran', '2018-04-27 09:57:24', '2018-05-10 16:12:15'),
+('KW04', '40.5', '200000', 'baik', '2018-04-28 00:29:12', '2018-05-10 16:14:53');
 
 -- --------------------------------------------------------
 
@@ -199,9 +220,10 @@ CREATE TABLE `tipe_transaksi` (
 --
 
 INSERT INTO `tipe_transaksi` (`kd_tipe_transaksi`, `nama_transaksi`, `created_at`, `updated_at`) VALUES
-('BL0001', 'Pembelian', '2018-05-03 22:10:31', NULL),
-('JL0001', 'Penjualan', '2018-05-03 22:10:48', NULL),
-('TB0001', 'Tambah Stok Penjualan', '2018-05-03 22:11:38', NULL);
+('BG-0001', 'Pembelian Gudang', '2018-05-03 22:10:31', '2018-05-10 15:46:03'),
+('BK-0001', 'Pembelian Kasir', '2018-05-10 08:47:24', NULL),
+('JK-0001', 'Penjualan Kasir', '2018-05-03 22:10:48', '2018-05-10 15:46:07'),
+('SK-0001', 'Tambah Stok Kasir', '2018-05-03 22:11:38', '2018-05-10 15:46:11');
 
 -- --------------------------------------------------------
 
@@ -226,14 +248,13 @@ CREATE TABLE `transaksi` (
 --
 
 INSERT INTO `transaksi` (`no_transaksi`, `kd_tipe_transaksi`, `tanggal_transaksi`, `grand_total`, `keterangan_lain`, `customer`, `kd_supplier`, `id_user`, `created-at`) VALUES
-('TRB1805090002', 'BL0001', '2018-05-09', '7300000', 'Transaksi Umum', NULL, 'SP-0002', 1, '2018-05-09 16:01:21'),
-('TRJ1805090001', 'JL0001', '2018-05-09', '400000', NULL, 'anda', NULL, 1, '2018-05-09 12:10:01'),
-('TRJ1805090002', 'JL0001', '2018-05-09', '500000', NULL, 'adasd', NULL, 1, '2018-05-09 12:12:28'),
-('TRJ1805090003', 'JL0001', '2018-05-09', '500000', NULL, 'qeq', NULL, 1, '2018-05-09 12:13:32'),
-('TRJ1805090004', 'JL0001', '2018-05-09', '350000', NULL, 'khkjhj', NULL, 1, '2018-05-09 12:22:39'),
-('TRJ1805090005', 'JL0001', '2018-05-09', '175000', NULL, 'qweqeqe', NULL, 1, '2018-05-09 12:24:00'),
-('TRJ1805090006', 'JL0001', '2018-05-09', '400000', '\'Penjualan Umum\'', 'warkono', NULL, 1, '2018-05-09 13:25:33'),
-('TRJ1805090007', 'JL0001', '2018-05-09', '500000', 'jual ke suplier emas pinggir jalan', 'meong', NULL, 1, '2018-05-09 13:27:15');
+('TBG1805090002', 'BG-0001', '2018-05-09', '7300000', 'Transaksi Umum', NULL, 'SP-0002', 1, '2018-05-09 16:01:21'),
+('TBG1805100001', 'BG-0001', '2018-05-10', '1300000', 'Transaksi Umum', NULL, 'SP-0003', 1, '2018-05-10 08:11:58'),
+('TBG1805100002', 'BG-0001', '2018-05-10', '106500000', 'Transaksi Umum', NULL, 'SP-006', 1, '2018-05-10 08:33:06'),
+('TBG1805100003', 'BG-0001', '2018-05-10', '60000000', 'Transaksi Umum', NULL, 'SP-0002', 1, '2018-05-10 11:13:18'),
+('TBG1805100004', 'BG-0001', '2018-05-10', '5000000', 'Transaksi Umum', NULL, 'SP-0003', 1, '2018-05-10 11:39:04'),
+('TJK1805100001', 'JK-0001', '2018-05-10', '322000', 'Transaksi Umum', 'ander', NULL, 1, '2018-05-10 08:54:02'),
+('TJK1805100002', 'JK-0001', '2018-05-10', '575000', 'Transaksi Umum', 'inva', NULL, 1, '2018-05-10 09:10:00');
 
 -- --------------------------------------------------------
 
@@ -357,7 +378,8 @@ ALTER TABLE `barang`
 -- Constraints for table `detail_transaksi`
 --
 ALTER TABLE `detail_transaksi`
-  ADD CONSTRAINT `kd_barang` FOREIGN KEY (`kd_barang`) REFERENCES `barang` (`kd_barang`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `kd_barang` FOREIGN KEY (`kd_barang`) REFERENCES `barang` (`kd_barang`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `no_transaksi` FOREIGN KEY (`no_transaksi`) REFERENCES `transaksi` (`no_transaksi`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `transaksi`

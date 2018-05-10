@@ -38,7 +38,7 @@
                             </div>
                                                                                                     
                             <div class="form-group">
-                                <label>Keterangan<span class="text-danger">*</span> <?php echo form_error('kd_barang') ?></label>
+                                <label>Keterangan<span class="text-danger">*</span> <?php echo form_error('keterangan') ?></label>
                                 <div>
                                     <textarea name="keterangan" required="" placeholder="Keterangan" class="form-control"><?= $keterangan;?></textarea>
                                 </div>

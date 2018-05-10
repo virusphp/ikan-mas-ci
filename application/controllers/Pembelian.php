@@ -112,7 +112,7 @@ class Pembelian extends CI_Controller {
             $keterangan=$this->input->post('keterangan', TRUE);
             $data = array(                
                 'no_transaksi' => $this->input->post('no_nota', TRUE),
-                'kd_tipe_transaksi' => 'BL0001',
+                'kd_tipe_transaksi' => 'BG-0001',
                 'tanggal_transaksi' => tgl_db($this->input->post('tanggal', TRUE)),
                 'grand_total' => $this->input->post('grand_total', TRUE),
                 'kd_supplier' => $this->input->post('kd_supplier', TRUE),

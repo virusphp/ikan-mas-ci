@@ -10,7 +10,7 @@ class Auth extends CI_Controller {
     }
 
     function index() {
-        $cek=$this->session->userdata('nama_pengguna');        
+        $cek=$this->session->userdata('status_login');        
         if($cek==TRUE){
             redirect('home');
         }else{

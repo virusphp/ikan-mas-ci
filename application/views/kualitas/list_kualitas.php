@@ -28,7 +28,7 @@
                                         <th>No</th>
                                         <th>Kode Kualitas</th>
                                         <th>Persentase</th> 
-                                        <th>Harga Jual</th>                                       
+                                        <th>Harga Jual/ gram</th>                                       
                                         <th>Keterangan</th>
                                         <th>Aksi</th>
                                     </tr>

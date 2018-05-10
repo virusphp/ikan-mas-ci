@@ -29,6 +29,7 @@ class M_barang extends CI_Model {
         $this->db->select('b.kd_barang,b.nama_barang,b.satuan_barang,b.keterangan_barang,k.persentase_kualitas,k.harga_jual');
         $this->db->from($this->barang);   
         $this->db->join($this->table_join,'k.kd_kualitas = b.kd_kualitas');
+        $this->db->order_by('nama_barang','ASC');
         return $this->db->get()->result();      
     }
 

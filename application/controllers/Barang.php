@@ -9,6 +9,7 @@ class Barang extends CI_Controller {
     {
         parent::__construct();       
         $this->load->model('M_barang');
+        chek_session();
     }
 
     public function index() 
@@ -19,14 +20,13 @@ class Barang extends CI_Controller {
 
     public function view_data() {
         $no = 1;
-        $getdata = $this->M_barang->get_all();
-        
+        $getdata = $this->M_barang->get_all();        
         foreach ($getdata as $q) {
            // $kualitas = $this->db->get_where('kualitas', array('kd_kualitas' => $q->kd_kualitas))->row();            
             $query[] = array(
                 'no' => $no++,
                 'kd_barang'=>$q->kd_barang,               
-                'nama_barang' => $q->nama_barang,
+                'nama_barang' => strtoupper($q->nama_barang),
                 'satuan' => $q->satuan_barang,
                 'kualitas' => persen($q->persentase_kualitas),
                 'harga_jual' => rupiah($q->harga_jual),

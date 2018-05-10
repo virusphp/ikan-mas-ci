@@ -173,7 +173,7 @@
                 success:function(html){  
                     $('#qty').val('');
                     $('#berat').val('');
-                    $('#harga').val('');
+                    // $('#harga').val('');
                     load_data_temp();                    
                 }
             });
